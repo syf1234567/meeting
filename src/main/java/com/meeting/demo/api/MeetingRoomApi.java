@@ -27,4 +27,24 @@ public class MeetingRoomApi {
         return meetingRoomService.getByUserId(userId,day);
     }
 
+    @RequestMapping("/deleteById")
+    public void delete(Integer id){
+        meetingRoomService.delete(id);
+    }
+
+    @RequestMapping("/getById")
+    public MeetingRoom getById(Integer id){
+        return meetingRoomService.getById(id);
+    }
+
+    @RequestMapping("/update")
+    public void update(MeetingRoom meetingRoom){
+        meetingRoomService.update(meetingRoom);
+    }
+
+    @RequestMapping("/insert")
+    public void insert(MeetingRoom meetingRoom){
+        meetingRoomService.insert(meetingRoom);
+    }
+
 }

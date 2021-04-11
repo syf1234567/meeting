@@ -5,13 +5,11 @@ import com.alibaba.fastjson.JSONObject;
 import com.meeting.demo.entity.MeetingUsers;
 import com.meeting.demo.serviceImpl.MeetingUsersServiceImpl;
 import com.meeting.demo.util.Request;
-import com.sun.jndi.toolkit.url.UrlUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/user")
