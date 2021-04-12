@@ -19,4 +19,18 @@ public class MeetingRoom {
     @TableField(value = "max_num")
     private Integer maxNum;
 
+    @TableField(value = "appliction_id")
+    private String applictionId;
+    @TableField(value = "appliction_secrit")
+    private String applictionSecrit;
+    @TableField(value = "product_id")
+    private String productId;
+    @TableField(value = "device_id")
+    private String deviceId;
+    @TableField(value = "msg_id")
+    private Integer msgId;
+    @TableField(value = "ablity")
+    private String ablity;
+    @TableField(value="service")
+    private String service;
 }
