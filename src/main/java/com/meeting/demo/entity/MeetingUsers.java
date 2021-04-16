@@ -18,4 +18,6 @@ public class MeetingUsers {
         private String openId;
         @TableField(value="mobile")
         private String mobile;
+        @TableField(value = "role")
+        private String role;
 }
