@@ -20,4 +20,5 @@ public class MeetingUsers {
         private String mobile;
         @TableField(value = "role")
         private String role;
+        //
 }
