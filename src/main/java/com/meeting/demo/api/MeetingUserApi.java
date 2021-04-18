@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -24,6 +25,24 @@ public class MeetingUserApi {
         return meetingUsersService.getByOpenId(openId);
     }
 
+    @RequestMapping("/insert")
+    public void insert(MeetingUsers meetingUsers){
+        meetingUsersService.insert(meetingUsers);
+    }
+    @GetMapping("/getAll")
+    public List<MeetingUsers> getAll(){
+        return meetingUsersService.getAll();
+    }
+
+    @GetMapping("/getById")
+    public MeetingUsers getById(Integer id){
+        return meetingUsersService.getById(id);
+    }
+
+    @RequestMapping("/wxLogin")
+    public MeetingUsers wxLogin(String userName,String password){
+        return meetingUsersService.wxLogin(userName,password);
+    }
 
     @RequestMapping("/login")
     public MeetingUsers doLogin(String code, String rawData, String signature, String encrypteData, String iv) {

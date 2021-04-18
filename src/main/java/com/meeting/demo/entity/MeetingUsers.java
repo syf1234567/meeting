@@ -21,4 +21,6 @@ public class MeetingUsers {
         @TableField(value = "role")
         private String role;
         //
+        @TableField(value = "password")
+        private String password;
 }

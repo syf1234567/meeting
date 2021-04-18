@@ -28,8 +28,8 @@ public class SubscribeHistoryServiceImpl {
 
     public List<SubscribeHistory> getByRoomIdAndDay(Integer roomId,String day){
         QueryWrapper<SubscribeHistory> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("day",day).eq("room_id",roomId);
-        queryWrapper.eq("status","已预约").or().eq("status","开门");
+        queryWrapper.eq("day",day).eq("room_id",roomId).eq("status","已预约");
+        queryWrapper.or().eq("status","开门").eq("day",day).eq("room_id",roomId);
         return subscribeHistoryMapper.selectList(queryWrapper);
     }
 
