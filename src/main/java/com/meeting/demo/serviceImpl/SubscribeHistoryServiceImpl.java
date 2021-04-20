@@ -26,38 +26,38 @@ public class SubscribeHistoryServiceImpl {
     @Autowired
     private MeetingUserMapper meetingUserMapper;
 
-    public List<SubscribeHistory> getByRoomIdAndDay(Integer roomId,String day){
+    public List<SubscribeHistory> getByRoomIdAndDay(Integer roomId, String day) {
         QueryWrapper<SubscribeHistory> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("day",day).eq("room_id",roomId).eq("status","已预约");
-        queryWrapper.or().eq("status","开门").eq("day",day).eq("room_id",roomId);
+        queryWrapper.eq("day", day).eq("room_id", roomId).eq("status", "已预约");
+        queryWrapper.or().eq("status", "开门").eq("day", day).eq("room_id", roomId);
         return subscribeHistoryMapper.selectList(queryWrapper);
     }
 
-    public SubscribeHistory getByRoomIdAndDayAndTime(Integer roomId,String day,String time){
+    public SubscribeHistory getByRoomIdAndDayAndTime(Integer roomId, String day, String time, String status) {
         QueryWrapper<SubscribeHistory> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("day",day).eq("room_id",roomId).eq("subscribe_time",time).eq("status","已预约");
+        queryWrapper.eq("day", day).eq("room_id", roomId).eq("subscribe_time", time).eq("status", status);
         return subscribeHistoryMapper.selectOne(queryWrapper);
     }
 
-    public void insert(SubscribeHistory subscribeHistory){
-        if(getByRoomIdAndDayAndTime(subscribeHistory.getRoomId(),subscribeHistory.getDay(),subscribeHistory.getSubscribeTime())==null){
+    public void insert(SubscribeHistory subscribeHistory) {
+        if (getByRoomIdAndDayAndTime(subscribeHistory.getRoomId(), subscribeHistory.getDay(), subscribeHistory.getSubscribeTime(), subscribeHistory.getStatus()) == null) {
             subscribeHistoryMapper.insert(subscribeHistory);
-        }else{
+        } else {
 
         }
     }
 
-    public List<SubscribeHistory> getByUserId(Integer roomId,String day,Integer userId){
+    public List<SubscribeHistory> getByUserId(Integer roomId, String day, Integer userId) {
         QueryWrapper<SubscribeHistory> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("room_id",roomId).ge("day",day).eq("status","已预约").eq("user_id",userId);
+        queryWrapper.eq("room_id", roomId).ge("day", day).eq("status", "已预约").eq("user_id", userId);
         return subscribeHistoryMapper.selectList(queryWrapper);
     }
 
-    public void update(SubscribeHistory subscribeHistory){
+    public void update(SubscribeHistory subscribeHistory) {
         subscribeHistoryMapper.updateById(subscribeHistory);
     }
 
-    public List<SubscribeHistoryDto> selectAll(){
+    public List<SubscribeHistoryDto> selectAll() {
         QueryWrapper<SubscribeHistory> subscribeHistoryQueryWrapper = new QueryWrapper<>();
         subscribeHistoryQueryWrapper.orderByDesc("day");
         List<SubscribeHistory> subscribeHistories = subscribeHistoryMapper.selectList(subscribeHistoryQueryWrapper);
@@ -65,13 +65,13 @@ public class SubscribeHistoryServiceImpl {
         for (SubscribeHistory subscribeHistory : subscribeHistories) {
             MeetingRoom meetingRoom = meetingRoomMapper.selectById(subscribeHistory.getRoomId());
             MeetingUsers meetingUsers = meetingUserMapper.selectById(subscribeHistory.getUserId());
-            SubscribeHistoryDto subscribeHistoryDto1 = new SubscribeHistoryDto(subscribeHistory.getId(),subscribeHistory.getDay(),subscribeHistory.getSubscribeTime(),meetingRoom,subscribeHistory.getStatus(),meetingUsers);
+            SubscribeHistoryDto subscribeHistoryDto1 = new SubscribeHistoryDto(subscribeHistory.getId(), subscribeHistory.getDay(), subscribeHistory.getSubscribeTime(), meetingRoom, subscribeHistory.getStatus(), meetingUsers);
             subscribeHistoryDto.add(subscribeHistoryDto1);
         }
         return subscribeHistoryDto;
     }
 
-    public void delete(Integer id){
+    public void delete(Integer id) {
         subscribeHistoryMapper.deleteById(id);
     }
 }

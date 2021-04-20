@@ -1,5 +1,7 @@
 package com.meeting.demo.api;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.meeting.demo.entity.MeetingRoom;
 import com.meeting.demo.entity.SubscribeHistory;
 import com.meeting.demo.entity.dto.SubscribeHistoryDto;
 import com.meeting.demo.serviceImpl.SubscribeHistoryServiceImpl;

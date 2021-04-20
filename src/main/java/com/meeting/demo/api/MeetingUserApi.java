@@ -7,6 +7,7 @@ import com.meeting.demo.serviceImpl.MeetingUsersServiceImpl;
 import com.meeting.demo.util.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashMap;
 import java.util.List;
@@ -88,4 +89,8 @@ public class MeetingUserApi {
         return jsonObject;
     }
 
+    @RequestMapping("/uploadExcel")
+    public String uploadExcel(@RequestParam("file") MultipartFile file){
+        return "success";
+    }
 }

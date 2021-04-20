@@ -27,6 +27,7 @@ public class MeetingRoomServiceImpl {
     public List<MeetingRoom> getByUserId(Integer userId, String day) {
         QueryWrapper<SubscribeHistory> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("user_id", userId).eq("status","已预约").ge("day", day).select("DISTINCT room_id");
+        queryWrapper.or().eq("user_id", userId).eq("status","开门").ge("day", day).select("DISTINCT room_id");
         List<MeetingRoom> meetingRooms = new ArrayList<>();
         List<SubscribeHistory> subscribeHistories1 = subscribeHistoryMapper.selectList(queryWrapper);
         for (SubscribeHistory subscribeHistory : subscribeHistories1) {
