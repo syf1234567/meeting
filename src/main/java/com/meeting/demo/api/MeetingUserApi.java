@@ -26,8 +26,8 @@ public class MeetingUserApi {
     }
 
     @RequestMapping("/insert")
-    public void insert(MeetingUsers meetingUsers){
-        meetingUsersService.insert(meetingUsers);
+    public String insert(MeetingUsers meetingUsers){
+        return meetingUsersService.insert(meetingUsers);
     }
     @GetMapping("/getAll")
     public List<MeetingUsers> getAll(){
@@ -64,10 +64,14 @@ public class MeetingUserApi {
     }
 
     @RequestMapping("/update")
-    public void update(MeetingUsers meetingUsers){
-        meetingUsersService.update(meetingUsers);
+    public String update(MeetingUsers meetingUsers){
+        return meetingUsersService.update(meetingUsers);
     }
 
+    @RequestMapping("/deleteById")
+    public void deleteById(Integer id){
+        meetingUsersService.deleteById(id);
+    }
 
     public static JSONObject getSessionKeyOrOpenId(String code) {
         //微信端登录code

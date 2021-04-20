@@ -34,8 +34,14 @@ public class MeetingUsersServiceImpl {
         return meetingUserMapper.selectOne(queryWrapper);
     }
 
-    public void insert(MeetingUsers meetingUsers){
+    public String insert(MeetingUsers meetingUsers){
+        QueryWrapper<MeetingUsers> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_name",meetingUsers.getUserName());
+        if(meetingUserMapper.selectCount(queryWrapper)>0){
+            return "用户名已存在";
+        }
         meetingUserMapper.insert(meetingUsers);
+        return "添加成功";
     }
     public MeetingUsers insert(String openId) {
         MeetingUsers meetingUsers = new MeetingUsers();
@@ -44,8 +50,18 @@ public class MeetingUsersServiceImpl {
         return meetingUsers;
     }
 
-    public void update(MeetingUsers meetingUsers) {
+    public void deleteById(Integer id){
+        meetingUserMapper.deleteById(id);
+    }
+
+    public String update(MeetingUsers meetingUsers) {
+        QueryWrapper<MeetingUsers> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_name",meetingUsers.getUserName()).ne("id",meetingUsers.getId());
+        if(meetingUserMapper.selectCount(queryWrapper)>0){
+            return "用户名已存在";
+        }
         meetingUserMapper.updateById(meetingUsers);
+        return "更新成功";
     }
 
 }

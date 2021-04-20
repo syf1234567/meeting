@@ -18,7 +18,6 @@ public class MeetingRoom {
     private String subscribeHistoryIds;
     @TableField(value = "max_num")
     private Integer maxNum;
-
     @TableField(value = "appliction_id")
     private String applictionId;
     @TableField(value = "appliction_secrit")
