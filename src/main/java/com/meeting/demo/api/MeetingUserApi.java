@@ -4,11 +4,14 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.meeting.demo.entity.MeetingUsers;
 import com.meeting.demo.serviceImpl.MeetingUsersServiceImpl;
+import com.meeting.demo.util.ImportExcel;
 import com.meeting.demo.util.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,22 +30,23 @@ public class MeetingUserApi {
     }
 
     @RequestMapping("/insert")
-    public String insert(MeetingUsers meetingUsers){
+    public String insert(MeetingUsers meetingUsers) {
         return meetingUsersService.insert(meetingUsers);
     }
+
     @GetMapping("/getAll")
-    public List<MeetingUsers> getAll(){
+    public List<MeetingUsers> getAll() {
         return meetingUsersService.getAll();
     }
 
     @GetMapping("/getById")
-    public MeetingUsers getById(Integer id){
+    public MeetingUsers getById(Integer id) {
         return meetingUsersService.getById(id);
     }
 
     @RequestMapping("/wxLogin")
-    public MeetingUsers wxLogin(String userName,String password){
-        return meetingUsersService.wxLogin(userName,password);
+    public MeetingUsers wxLogin(String userName, String password) {
+        return meetingUsersService.wxLogin(userName, password);
     }
 
     @RequestMapping("/login")
@@ -55,8 +59,8 @@ public class MeetingUserApi {
         //User user = userService.findByOpenid( openid );
         MeetingUsers meetingUsers = meetingUsersService.getByOpenId(openid);
         if (meetingUsers == null) {
-               return meetingUsersService.insert(openid);
-        }else{
+            return meetingUsersService.insert(openid);
+        } else {
             return meetingUsers;
         }
         //uuid生成唯一key
@@ -65,12 +69,12 @@ public class MeetingUserApi {
     }
 
     @RequestMapping("/update")
-    public String update(MeetingUsers meetingUsers){
+    public String update(MeetingUsers meetingUsers) {
         return meetingUsersService.update(meetingUsers);
     }
 
     @RequestMapping("/deleteById")
-    public void deleteById(Integer id){
+    public void deleteById(Integer id) {
         meetingUsersService.deleteById(id);
     }
 
@@ -90,7 +94,64 @@ public class MeetingUserApi {
     }
 
     @RequestMapping("/uploadExcel")
-    public String uploadExcel(@RequestParam("file") MultipartFile file){
+    public String uploadExcel(@RequestParam("file") MultipartFile multfile) {
+        String path = "";
+        Map<String,Object> maps = new HashMap<String,Object>();
+        Map<String,Object> maps2 = new HashMap<String,Object>();
+        String fileName = multfile.getOriginalFilename();
+        // 获取文件后缀
+        String prefix = fileName.substring(fileName.lastIndexOf("."));
+        // 用uuid作为文件名，防止生成的临时文件重复
+        try{
+
+
+        final File excelFile = File.createTempFile("imagesFile-" + System.currentTimeMillis(), prefix);
+        // 将MultipartFile转为File
+
+        multfile.transferTo(excelFile);
+
+        System.out.println("contextLoads--》》测试成功");
+        ImportExcel excel = new ImportExcel();
+        List<MeetingUsers> newStudents = new ArrayList<MeetingUsers>();
+
+        newStudents = excel.importXLS(excelFile.toString());
+        // 程序结束时，删除临时文件
+        deleteFile(excelFile);
+        System.out.println(newStudents.size());
+        for (int i = 0; i < newStudents.size(); i++) {
+            meetingUsersService.insert(newStudents.get(i));
+        }
+        }catch (Exception e){
+            System.out.println("文件格式出错");
+            return "文件格式出错";
+        }
         return "success";
+    }
+
+    /**
+     * 删除临时文件
+     *
+     * @param
+     */
+    private void deleteFile(File path) {
+        if (null != path) {
+            if (!path.exists())
+                return;
+            if (path.isFile()) {
+                boolean result = path.delete();
+                int tryCount = 0;
+                while (!result && tryCount++ < 10) {
+                    System.gc(); // 回收资源
+                    result = path.delete();
+                }
+            }
+            File[] files = path.listFiles();
+            if (null != files) {
+                for (int i = 0; i < files.length; i++) {
+                    deleteFile(files[i]);
+                }
+            }
+            path.delete();
+        }
     }
 }
