@@ -44,7 +44,10 @@ public class ImportExcel implements Serializable {
 //					;
 //				}
                     // 读取当前行中单元格数据，索引从0开始
-                    String userName = row.getCell(0).getStringCellValue();
+                    //String userName = row.getCell(0).getStringCellValue();
+                    String userName = String.valueOf(row.getCell(0).getNumericCellValue());
+                    BigDecimal b = new BigDecimal(userName);
+                    userName = b.toString();
                    // String mobile = row.getCell(1).getStringCellValue();
                     String mobile = String.valueOf(row.getCell(1).getNumericCellValue());
                     BigDecimal bd = new BigDecimal(mobile);
