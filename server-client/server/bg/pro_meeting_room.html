@@ -233,7 +233,11 @@
             $.get("http://127.0.0.1:8080/api/subscribeHistory/selectAll", function (res) {
                 let ss = ""
                 res.forEach(function (item, index) {
-                    // <a onclick='editOne(" + item.id + ")' style='margin-left:10px'>编辑</a>
+                    if(item.meetingUsers==null){
+                        item.meetingUsers = {}
+                        item.meetingUsers.userName = ""
+                    }
+                    //<td>" + item.meetingUsers.userName + "</td>
                     ss += "<tr class='gradeX'><td>" + item.id + "</td><td>" + item.day + "</td><td>" + item.subscribeTime + "</td><td>" + item.meetingRoom.name + "</td><td>" + item.status + "</td><td>" + item.meetingUsers.userName + "</td><td><a onclick='deleteOne(" + item.id + ")'>删除</a></td></tr>"
                 })
                 $("#tbody").html(ss)

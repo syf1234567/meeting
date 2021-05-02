@@ -78,6 +78,11 @@ public class MeetingUserApi {
         meetingUsersService.deleteById(id);
     }
 
+    @RequestMapping("/register")
+    public String register(String userName){
+        return meetingUsersService.register(userName);
+    }
+
     public static JSONObject getSessionKeyOrOpenId(String code) {
         //微信端登录code
         String wxCode = code;
