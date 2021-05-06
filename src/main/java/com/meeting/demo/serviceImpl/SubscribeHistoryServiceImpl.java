@@ -3,6 +3,7 @@ package com.meeting.demo.serviceImpl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.meeting.demo.entity.MeetingRoom;
 import com.meeting.demo.entity.MeetingUsers;
+import com.meeting.demo.entity.ProTimes;
 import com.meeting.demo.entity.SubscribeHistory;
 import com.meeting.demo.entity.dto.SubscribeHistoryDto;
 import com.meeting.demo.mapper.MeetingRoomMapper;
@@ -11,7 +12,9 @@ import com.meeting.demo.mapper.SubscribeHistoryMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 @Service
@@ -25,6 +28,31 @@ public class SubscribeHistoryServiceImpl {
 
     @Autowired
     private MeetingUserMapper meetingUserMapper;
+
+    public ProTimes getTimes(Integer id){
+        Integer[] open = new Integer[7];
+        Integer[] pro = new Integer[7];
+        for (int i = 7; i > 0; i--) {
+            String date = "";
+            if(getDateAdd(i).charAt(0)=='0'){
+                date=getDateAdd(i).substring(1);
+            }
+            QueryWrapper<SubscribeHistory> subscribeHistoryQueryWrapper = new QueryWrapper<>();
+            subscribeHistoryQueryWrapper.eq("room_id",id).eq("status","已预约").eq("day",date);
+            open[7-i]= subscribeHistoryMapper.selectList(subscribeHistoryQueryWrapper).size();
+            QueryWrapper<SubscribeHistory> subscribeHistoryQueryWrapper1 = new QueryWrapper<>();
+            subscribeHistoryQueryWrapper1.eq("room_id",id).eq("status","开门").eq("day",date);
+            pro[7-i]= subscribeHistoryMapper.selectList(subscribeHistoryQueryWrapper1).size();
+        }
+        return new ProTimes(open,pro);
+    }
+
+    private static String getDateAdd(int days){
+        SimpleDateFormat sf = new SimpleDateFormat("MM-dd");
+        Calendar c = Calendar.getInstance();
+        c.add(Calendar.DAY_OF_MONTH, -days);
+        return sf.format(c.getTime());
+    }
 
     public List<SubscribeHistory> getByRoomIdAndDay(Integer roomId, String day) {
         QueryWrapper<SubscribeHistory> queryWrapper = new QueryWrapper<>();

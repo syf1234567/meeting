@@ -15,13 +15,31 @@ public class MeetingUsersServiceImpl {
     @Autowired
     private MeetingUserMapper meetingUserMapper;
 
-    public String register(String userName) {
+    public String modifyPassword(Integer id,String password1,String password2){
+        QueryWrapper<MeetingUsers> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("id",id).eq("password",password1);
+        MeetingUsers meetingUsers = meetingUserMapper.selectOne(queryWrapper);
+        if(meetingUsers==null){
+            return "旧密码错误";
+        }
+        meetingUsers.setPassword(password2);
+        meetingUserMapper.updateById(meetingUsers);
+        return "修改成功";
+    }
+
+    public Object register(String userName) {
         QueryWrapper<MeetingUsers> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("user_name", userName);
-        if (meetingUserMapper.selectCount(queryWrapper) > 0) {
-            return "注册成功";
+        MeetingUsers meetingUsers = meetingUserMapper.selectOne(queryWrapper);
+        if (null != meetingUsers) {
+            if(meetingUsers.getIsRegister()){
+                return "已经注册过了";
+            }
+            meetingUsers.setIsRegister(true);
+            meetingUserMapper.updateById(meetingUsers);
+            return meetingUsers;
         }else{
-            return "未导入学号";
+            return "未导入账号";
         }
     }
 

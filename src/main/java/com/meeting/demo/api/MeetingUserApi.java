@@ -79,8 +79,13 @@ public class MeetingUserApi {
     }
 
     @RequestMapping("/register")
-    public String register(String userName){
+    public Object register(String userName){
         return meetingUsersService.register(userName);
+    }
+
+    @RequestMapping("/modifyPassword")
+    public String modifyPassword(Integer id,String password1,String password2){
+        return meetingUsersService.modifyPassword(id,password1,password2);
     }
 
     public static JSONObject getSessionKeyOrOpenId(String code) {

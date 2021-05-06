@@ -6,7 +6,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-
     <title> - 数据表格</title>
     <meta name="keywords" content="">
     <meta name="description" content="">
@@ -14,10 +13,9 @@
     <link rel="shortcut icon" href="favicon.ico">
     <link href="css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
     <link href="css/font-awesome.css?v=4.4.0" rel="stylesheet">
-
+    <link href="css/plugins/footable/footable.core.css" rel="stylesheet">
     <!-- Data Tables -->
     <link href="css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
-
     <link href="css/animate.css" rel="stylesheet">
     <link href="css/style.css?v=4.1.0" rel="stylesheet">
     <style>
@@ -68,7 +66,7 @@
             display: none;
         }
 
-        .popOut>span {
+        .popOut > span {
             position: absolute;
             right: 10px;
             top: 0;
@@ -143,225 +141,306 @@
 </head>
 
 <body class="gray-bg">
-    <div class="wrapper wrapper-content animated fadeInRight">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <button style="width:76px;height:30px;margin:0px;" onclick="insert()">添加</button> </h5>
-                        <div class="ibox-tools">
-                            <a class="collapse-link">
-                                <i class="fa fa-chevron-up"></i>
-                            </a>
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="table_data_tables.html#">
-                                <i class="fa fa-wrench"></i>
-                            </a>
-                            <!-- <ul class="dropdown-menu dropdown-user">
-                                <li><a href="table_data_tables.html#">选项1</a>
-                                </li>
-                                <li><a href="table_data_tables.html#">选项2</a>
-                                </li>
-                            </ul> -->
-                            <a class="close-link">
-                                <i class="fa fa-times"></i>
-                            </a>
-                        </div>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <button style="width:76px;height:30px;margin:0px;" onclick="insert()">添加</button>
+                    </h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="table_data_tables.html#">
+                            <i class="fa fa-wrench"></i>
+                        </a>
+                        <!-- <ul class="dropdown-menu dropdown-user">
+                            <li><a href="table_data_tables.html#">选项1</a>
+                            </li>
+                            <li><a href="table_data_tables.html#">选项2</a>
+                            </li>
+                        </ul> -->
+                        <a class="close-link">
+                            <i class="fa fa-times"></i>
+                        </a>
                     </div>
-                    <div class="ibox-content">
-                        <table class="table table-striped table-bordered table-hover dataTables-example">
-                            <thead>
-                                <tr>
-                                    <th>id</th>
-                                    <th>议论间名字</th>
-                                    <th>applictionId</th>
-                                    <th>applictionSecrit</th>
-                                    <th>productId</th>
-                                    <th>deviceId</th>
-                                    <th>msgId</th>
-                                    <th>ablity</th>
-                                    <th>service</th>
-                                    <th>操作</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tbody">
-                            </tbody>
-                        </table>
-                    </div>
+                </div>
+                <div class="ibox-content">
+                    <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="8">
+                        <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>议论间名字</th>
+                            <th>applictionId</th>
+                            <th>applictionSecrit</th>
+                            <th>productId</th>
+                            <th>deviceId</th>
+                            <th>msgId</th>
+                            <th>ablity</th>
+                            <th>service</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody id="tbody">
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <td colspan="10">
+                                <ul class="pagination pull-right"></ul>
+                            </td>
+                        </tr>
+                        </tfoot>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
-    <div class="popOutBg"></div>
-    <div class="popOut">
-        <span title="关闭"> x </span>
-        <table>
-            <caption>议论间</caption>
-            <tr>
-                <td width="120">议论间名称：</td>
-                <td><input type="text" class="inp" placeholder="请输入议论间名称" id="name"></td>
-            </tr>
-            <th></th>
-            <th></th>
-            <th></th>
-            <tr>
-                <td width="120">applictionId：</td>
-                <td><input type="text" class="inp" placeholder="请输入applictionId" id="applictionId"></td>
-            </tr>
-            <tr>
-                <td width="120">applictionSecrit：</td>
-                <td><input type="text" class="inp" placeholder="请输入applictionSecrit" id="applictionSecrit"></td>
-            </tr>
-            <tr>
-                <td width="120">productId：</td>
-                <td><input type="text" class="inp" placeholder="请输入productId" id="productId"></td>
-            </tr>
-            <tr>
-                <td width="120">msgId:</td>
-                <td><input type="text" class="inp" placeholder="请输入msgId" id="msgId"></td>
-            </tr>
-            <tr>
-                <td width="120">ablity：</td>
-                <td><input type="text" class="inp" placeholder="请输入ablity" id="ablity"></td>
-            </tr>
-            <tr>
-                <td width="120">service：</td>
-                <td><input type="text" class="inp" placeholder="请输入service" id="service"></td>
-            </tr>
-            <tr>
-                <td colspan="2"><input type="button" class="login" value="确认" onclick="confirmButton()"></td>
+</div>
+<div class="popOutBg"></div>
+<div class="popOut">
+    <span title="关闭"> x </span>
+    <table>
+        <caption>议论间</caption>
+        <tbody>
+        <tr>
+            <td width="120">议论间名称：</td>
+            <td><input type="text" class="inp" placeholder="请输入议论间名称" id="name"></td>
+        </tr>
+        <th></th>
+        <th></th>
+        <th></th>
+        <tr>
+            <td width="120">applictionId：</td>
+            <td><input type="text" class="inp" placeholder="请输入applictionId" id="applictionId"></td>
+        </tr>
+        <tr>
+            <td width="120">applictionSecrit：</td>
+            <td><input type="text" class="inp" placeholder="请输入applictionSecrit" id="applictionSecrit"></td>
+        </tr>
+        <tr>
+            <td width="120">productId：</td>
+            <td><input type="text" class="inp" placeholder="请输入productId" id="productId"></td>
+        </tr>
+        <tr>
+            <td width="120">msgId:</td>
+            <td><input type="text" class="inp" placeholder="请输入msgId" id="msgId"></td>
+        </tr>
+        <tr>
+            <td width="120">ablity：</td>
+            <td><input type="text" class="inp" placeholder="请输入ablity" id="ablity"></td>
+        </tr>
+        <tr>
+            <td width="120">service：</td>
+            <td><input type="text" class="inp" placeholder="请输入service" id="service"></td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="button" class="login" value="确认" onclick="confirmButton()"></td>
+        </tr>
+        </tbody>
+        2222
+        <tfoot>
+        <tr>
+            <td colspan="5">
+                <ul class="pagination pull-right"></ul>
+            </td>
+        </tr>
+        </tfoot>
+    </table>
+</div>
+<div id="main" style="width: 600px;height:400px;margin-left: 200px;">333</div>
+<!-- 全局js -->
+<script src="js/jquery.min.js?v=2.1.4"></script>
+<script src="js/bootstrap.min.js?v=3.3.6"></script>
+<script src="js/plugins/footable/footable.all.min.js"></script>
+<!-- Data Tables -->
+<!-- 自定义js -->
+<script src="js/content.js?v=1.0.0"></script>
+<!-- Page-Level Scripts -->
+<script src="https://cdn.bootcss.com/echarts/3.7.1/echarts.min.js"></script>
+<script>
+    var myChart = echarts.init(document.getElementById('main'));
 
-            </tr>
-        </table>
-    </div>
-    <!-- 全局js -->
-    <script src="js/jquery.min.js?v=2.1.4"></script>
-    <script src="js/bootstrap.min.js?v=3.3.6"></script>
-    <script src="js/plugins/jeditable/jquery.jeditable.js"></script>
 
-    <!-- Data Tables -->
-    <!-- <script src="js/plugins/dataTables/jquery.dataTables.js"></script>
-    <script src="js/plugins/dataTables/dataTables.bootstrap.js"></script>
+    function getDay(day){
+        var today = new Date();
+        var targetday_milliseconds=today.getTime() + 1000*60*60*24*day;
+        today.setTime(targetday_milliseconds); //注意，这行是关键代码
+        var tYear = today.getFullYear();
+        var tMonth = today.getMonth();
+        var tDate = today.getDate();
+        tMonth = doHandleMonth(tMonth + 1);
+        tDate = doHandleMonth(tDate);
+        return tMonth+"-"+tDate;
+    }
 
-    <!-- 自定义js -->
-    <script src="js/content.js?v=1.0.0"></script>
-    <!-- Page-Level Scripts -->
-    <script>
-        console.log(window.localStorage.userInfo);
+    function doHandleMonth(month){
+        var m = month;
+        if(month.toString().length == 1){
+            m = "0" + month;
+        }
+        return m;
+    }
 
-        if (window.localStorage.userInfo == "" || window.localStorage.userInfo == undefined) {
-            window.location.href = "../login.html"
+    console.log(window.localStorage.userInfo);
+
+    if (window.localStorage.userInfo == "" || window.localStorage.userInfo == undefined) {
+        window.location.href = "../login.html"
+    } else {
+        getData();
+    }
+    let operation = ""
+    let selectId = 0;
+
+    function getData() {
+        $.get("http://127.0.0.1:8080/api/meetingRoom/getAll", function (res) {
+            let ss = ""
+            res.forEach(function (item, index) {
+                ss += "<tr class='gradeX'><td>" + item.id + "</td><td>" + item.name + "</td><td>" + item.applictionId + "</td><td>" + item.applictionSecrit + "</td><td>" + item.productId + "</td><td>" + item.deviceId + "</td><td>" + item.msgId + "</td><td>" + item.ablity + "</td><td>" + item.service + "</td><td><a onclick='deleteOne(" + item.id + ")'>删除</a><a onclick='editOne(" + item.id + ")' style='margin-left:10px'>编辑</a><a onclick='zhexiantu(" + item.id + ")' style='margin-left:10px'>折线图</a></td></tr>"
+            })
+            $("#tbody").html(ss)
+            $('.footable').footable();
+        })
+    }
+
+    function zhexiantu(id){
+        // 指定图表的配置项和数据
+        $.get("http://127.0.0.1:8080/api/subscribeHistory/getTimes", { id: id }, function (res) {
+            option = {
+                xAxis: {
+                    type: 'category',
+                    data: [getDay(-7),getDay(-6),getDay(-5),getDay(-4),getDay(-3),getDay(-2),getDay(-1)]
+                },
+                tooltip: {
+                    trigger: 'axis'
+                },
+                legend: {
+                    data: ['开门次数', '预约次数']
+                },
+                yAxis: {
+                    type: 'value'
+                },
+                series: [{
+                    name: '开门次数',
+                    data: res.open,
+                    type: 'line'
+                },{
+                    name: '预约次数',
+                    data: res.pro,
+                    type: 'line'
+                }]
+            };
+            // 使用刚指定的配置项和数据显示图表。
+            myChart.setOption(option);
+        })
+
+    }
+
+    function deleteOne(id) {
+        var r = confirm("确认删除吗?")
+        if (r == true) {
+            $.get("http://127.0.0.1:8080/api/meetingRoom/deleteById", {id: id}, function (res) {
+                getData();
+            })
         } else {
-            getData();
         }
-        let operation = ""
-        let selectId = 0;
-        function getData() {
-            $.get("http://127.0.0.1:8080/api/meetingRoom/getAll", function (res) {
-                let ss = ""
-                res.forEach(function (item, index) {
-                    ss += "<tr class='gradeX'><td>" + item.id + "</td><td>" + item.name + "</td><td>" + item.applictionId + "</td><td>" + item.applictionSecrit + "</td><td>" + item.productId + "</td><td>" + item.deviceId + "</td><td>" + item.msgId + "</td><td>" + item.ablity + "</td><td>" + item.service + "</td><td><a onclick='deleteOne(" + item.id + ")'>删除</a><a onclick='editOne(" + item.id + ")' style='margin-left:10px'>编辑</a></td></tr>"
-                })
-                $("#tbody").html(ss)
-            })
-        }
+    }
 
-        function deleteOne(id) {
-            var r = confirm("确认删除吗?")
-            if (r == true) {
-                $.get("http://127.0.0.1:8080/api/meetingRoom/deleteById", { id: id }, function (res) {
-                    getData();
-                })
-            }
-            else {
-            }
+    function getClass(param) {
+        if (arguments[1] == true) {
+            return document.querySelectorAll(param);
+        } else {
+            return document.querySelector(param);
+        }
+    }
 
-        }
-        function getClass(param) {
-            if (arguments[1] == true) {
-                return document.querySelectorAll(param);
-            } else {
-                return document.querySelector(param);
-            }
-        }
-        function editOne(id) {
-            $.get("http://127.0.0.1:8080/api/meetingRoom/getById", { id: id }, function (res) {
-                $("#name").val(res.name);
-                $("#maxNum").val(res.maxNum);
-                getClass(".popOut").style.display = "block";
-                ani();
-                getClass(".popOutBg").style.display = "block";
-            })
-            selectId = id;
-            operation = "编辑"
-        }
 
-        function insert() {
-            $("#name").val("");
-            $("#maxNum").val("");
+    function editOne(id) {
+        $.get("http://127.0.0.1:8080/api/meetingRoom/getById", {id: id}, function (res) {
+            $("#name").val(res.name);
+            $("#maxNum").val(res.maxNum);
             getClass(".popOut").style.display = "block";
             ani();
             getClass(".popOutBg").style.display = "block";
-            operation = "添加"
+        })
+        selectId = id;
+        operation = "编辑"
+    }
+
+    function insert() {
+        $("#name").val("");
+        $("#maxNum").val("");
+        getClass(".popOut").style.display = "block";
+        ani();
+        getClass(".popOutBg").style.display = "block";
+        operation = "添加"
+    }
+
+    function ani() {
+        getClass(".popOut").className = "popOut ani";
+    }
+
+    getClass(".popOut > span").onclick = function () {
+        getClass(".popOut").style.display = "none";
+        getClass(".popOutBg").style.display = "none";
+    };
+    getClass(".popOutBg").onclick = function () {
+        getClass(".popOut").style.display = "none";
+        getClass(".popOutBg").style.display = "none";
+    };
+
+    function confirmButton() {
+        if ($("#name").val() == "") {
+            alert("名称不能为空")
         }
-        function ani() {
-            getClass(".popOut").className = "popOut ani";
+        if ($("#maxNum").val() == "") {
+            alert("最大容纳量不能为空")
         }
-        getClass(".popOut > span").onclick = function () {
-            getClass(".popOut").style.display = "none";
-            getClass(".popOutBg").style.display = "none";
-        };
-        getClass(".popOutBg").onclick = function () {
-            getClass(".popOut").style.display = "none";
-            getClass(".popOutBg").style.display = "none";
-        };
-
-        function confirmButton() {
-            if ($("#name").val() == "") {
-                alert("名称不能为空")
-            }
-            if ($("#maxNum").val() == "") {
-                alert("最大容纳量不能为空")
-            }
-            if (operation == "编辑") {
-                $.get("http://127.0.0.1:8080/api/meetingRoom/update", { id: selectId, name: $("#name").val(), 
-                applictionId: $("#applictionId").val(),applictionSecrit: $("#applictionSecrit").val(),
-                productId: $("#productId").val(),deviceId: $("#deviceId").val(),
-                msgId: $("#msgId").val(),ablity: $("#ablity").val(),service: $("#service").val(), }, function (res) {
-                    getData();
-                    getClass(".popOut").style.display = "none";
-                    getClass(".popOutBg").style.display = "none";
-                })
-            }
-            if (operation == "添加") {
-                $.get("http://127.0.0.1:8080/api/meetingRoom/insert", { name: $("#name").val(), maxNum: $("#maxNum").val(), 
-                applictionId: $("#applictionId").val(),applictionSecrit: $("#applictionSecrit").val(),
-                productId: $("#productId").val(),deviceId: $("#deviceId").val(),
-                msgId: $("#msgId").val(),ablity: $("#ablity").val(),service: $("#service").val(), }, function (res) {
-                    getData();
-                    getClass(".popOut").style.display = "none";
-                    getClass(".popOutBg").style.display = "none";
-                })
-            }
+        if (operation == "编辑") {
+            $.get("http://127.0.0.1:8080/api/meetingRoom/update", {
+                id: selectId, name: $("#name").val(),
+                applictionId: $("#applictionId").val(), applictionSecrit: $("#applictionSecrit").val(),
+                productId: $("#productId").val(), deviceId: $("#deviceId").val(),
+                msgId: $("#msgId").val(), ablity: $("#ablity").val(), service: $("#service").val(),
+            }, function (res) {
+                getData();
+                getClass(".popOut").style.display = "none";
+                getClass(".popOutBg").style.display = "none";
+            })
         }
-        $(document).ready(function () {
-            // $('.dataTables-example').dataTable();
-            /* Init DataTables */
-
-            /* Apply the jEditable handlers to the table */
-
-        });
-
-        function fnClickAddRow() {
-            $('#editable').dataTable().fnAddData([
-                "Custom row",
-                "New row",
-                "New row",
-                "New row",
-                "New row"]);
-
+        if (operation == "添加") {
+            $.get("http://127.0.0.1:8080/api/meetingRoom/insert", {
+                name: $("#name").val(), maxNum: $("#maxNum").val(),
+                applictionId: $("#applictionId").val(), applictionSecrit: $("#applictionSecrit").val(),
+                productId: $("#productId").val(), deviceId: $("#deviceId").val(),
+                msgId: $("#msgId").val(), ablity: $("#ablity").val(), service: $("#service").val(),
+            }, function (res) {
+                getData();
+                getClass(".popOut").style.display = "none";
+                getClass(".popOutBg").style.display = "none";
+            })
         }
+    }
 
-    </script>
+    $(document).ready(function () {
+        // $('.dataTables-example').dataTable();
+        /* Init DataTables */
+
+        /* Apply the jEditable handlers to the table */
+
+    });
+
+    function fnClickAddRow() {
+        $('#editable').dataTable().fnAddData([
+            "Custom row",
+            "New row",
+            "New row",
+            "New row",
+            "New row"]);
+
+    }
+
+</script>
 
 </body>
 

@@ -23,4 +23,6 @@ public class MeetingUsers {
         //
         @TableField(value = "password")
         private String password;
+        @TableField(value = "is_register")
+        private Boolean isRegister;
 }

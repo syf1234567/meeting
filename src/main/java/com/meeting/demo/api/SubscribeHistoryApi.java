@@ -1,7 +1,6 @@
 package com.meeting.demo.api;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.meeting.demo.entity.MeetingRoom;
+import com.meeting.demo.entity.ProTimes;
 import com.meeting.demo.entity.SubscribeHistory;
 import com.meeting.demo.entity.dto.SubscribeHistoryDto;
 import com.meeting.demo.serviceImpl.SubscribeHistoryServiceImpl;
@@ -48,5 +47,10 @@ public class SubscribeHistoryApi {
     @RequestMapping("/delete")
     public void delete(Integer id){
         subscribeHistoryService.delete(id);
+    }
+
+    @RequestMapping("/getTimes")
+    public ProTimes getTimes(Integer id){
+        return subscribeHistoryService.getTimes(id);
     }
 }
