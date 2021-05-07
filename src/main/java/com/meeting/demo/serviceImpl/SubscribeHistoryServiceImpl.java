@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -67,12 +68,44 @@ public class SubscribeHistoryServiceImpl {
         return subscribeHistoryMapper.selectOne(queryWrapper);
     }
 
-    public void insert(SubscribeHistory subscribeHistory) {
-        if (getByRoomIdAndDayAndTime(subscribeHistory.getRoomId(), subscribeHistory.getDay(), subscribeHistory.getSubscribeTime(), subscribeHistory.getStatus()) == null) {
-            subscribeHistoryMapper.insert(subscribeHistory);
-        } else {
-
+    public String insert(SubscribeHistory subscribeHistory) {
+        QueryWrapper<SubscribeHistory> subscribeHistoryQueryWrapper = new QueryWrapper<>();
+        String date = "";
+        if(getDateAdd(0).charAt(0)=='0'){
+            date=getDateAdd(0).substring(1);
         }
+        subscribeHistoryQueryWrapper.eq("user_id",subscribeHistory.getUserId()).ge("day",date).eq("status","已预约");
+        List<SubscribeHistory> subscribeHistories = subscribeHistoryMapper.selectList(subscribeHistoryQueryWrapper);
+        Boolean pro = true;
+        if(subscribeHistories.size()>=3){
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH");
+            Date date1 = new Date();
+            Integer format = Integer.valueOf(simpleDateFormat.format(date1));
+            Integer count = 0;
+            for (SubscribeHistory history : subscribeHistories) {
+                if(!history.getDay().equals(date)){
+                    count++;
+                }else{
+                    if(Integer.parseInt(history.getSubscribeTime().split("-")[0].split(":")[0])>=format){
+                        count++;
+                    }
+                }
+            }
+            if(count>=3){
+                pro = false;
+            }
+        }
+        if(pro){
+            if (getByRoomIdAndDayAndTime(subscribeHistory.getRoomId(), subscribeHistory.getDay(), subscribeHistory.getSubscribeTime(), subscribeHistory.getStatus()) == null) {
+                subscribeHistoryMapper.insert(subscribeHistory);
+                return "预约成功";
+            } else {
+                return "预约失败";
+            }
+        }else{
+            return "本周超过三次预约";
+        }
+
     }
 
     public List<SubscribeHistory> getByUserId(Integer roomId, String day, Integer userId) {

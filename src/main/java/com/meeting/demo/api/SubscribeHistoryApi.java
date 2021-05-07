@@ -25,8 +25,8 @@ public class SubscribeHistoryApi {
     }
 
     @RequestMapping("/insert")
-    public void insert(SubscribeHistory subscribeHistory){
-        subscribeHistoryService.insert(subscribeHistory);
+    public String insert(SubscribeHistory subscribeHistory){
+        return subscribeHistoryService.insert(subscribeHistory);
     }
 
     @RequestMapping("/getByUserId")
