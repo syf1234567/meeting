@@ -52,12 +52,12 @@ public class ImportExcel implements Serializable {
                     String mobile = String.valueOf(row.getCell(1).getNumericCellValue());
                     BigDecimal bd = new BigDecimal(mobile);
                     mobile = bd.toString();
-                    String role = row.getCell(2).getStringCellValue();
-                    String password = row.getCell(3).getStringCellValue();
+//                    String role = row.getCell(2).getStringCellValue();
+//                    String password = row.getCell(3).getStringCellValue();
                     newStudent.setUserName(userName);
                     newStudent.setMobile(mobile);
-                    newStudent.setRole(role);
-                    newStudent.setPassword(password);
+                    newStudent.setRole("");
+                    newStudent.setPassword("");
                     list.add(newStudent);
                 }
                 // 5、关闭流
