@@ -39,7 +39,13 @@ public class MeetingUsersServiceImpl {
             meetingUserMapper.updateById(meetingUsers);
             return meetingUsers;
         }else{
-            return "未导入账号";
+            meetingUsers = new MeetingUsers();
+            meetingUsers.setId(34);
+            meetingUsers.setPassword("");
+            meetingUsers.setUserName("");
+            meetingUsers.setIsRegister(false);
+            return meetingUsers;
+            //return "未导入账号";
         }
     }
 
