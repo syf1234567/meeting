@@ -278,6 +278,7 @@
         }
         function editOne(id) {
             $.get("http://127.0.0.1:8080/api/meetingRoom/getById", { id: id }, function (res) {
+                console.log(res);
                 $("#name").val(res.name);
                 $("#maxNum").val(res.maxNum);
                 getClass(".popOut").style.display = "block";

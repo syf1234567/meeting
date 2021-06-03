@@ -166,7 +166,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="ibox-content">
+                <div class="ibox-content" style="min-height: 1000px">
                     <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="8">
                         <thead>
                         <tr>
@@ -238,7 +238,6 @@
             <td colspan="2"><input type="button" class="login" value="确认" onclick="confirmButton()"></td>
         </tr>
         </tbody>
-        2222
         <tfoot>
         <tr>
             <td colspan="5">
@@ -248,7 +247,7 @@
         </tfoot>
     </table>
 </div>
-<div id="main" style="width: 600px;height:400px;margin-left: 200px;">333</div>
+<div id="main" style="width: 600px;height:400px;margin-left: 200px;"></div>
 <!-- 全局js -->
 <script src="js/jquery.min.js?v=2.1.4"></script>
 <script src="js/bootstrap.min.js?v=3.3.6"></script>
@@ -259,6 +258,7 @@
 <!-- Page-Level Scripts -->
 <script src="https://cdn.bootcss.com/echarts/3.7.1/echarts.min.js"></script>
 <script>
+
     var myChart = echarts.init(document.getElementById('main'));
 
 
@@ -358,7 +358,13 @@
     function editOne(id) {
         $.get("http://127.0.0.1:8080/api/meetingRoom/getById", {id: id}, function (res) {
             $("#name").val(res.name);
+            $("#applictionId").val(res.applictionId);
+            $("#applictionSecrit").val(res.applictionSecrit);
+            $("#productId").val(res.productId);
+            $("#msgId").val(res.msgId);
             $("#maxNum").val(res.maxNum);
+            $("#ablity").val(res.ablity);
+            $("#service").val(res.service);
             getClass(".popOut").style.display = "block";
             ani();
             getClass(".popOutBg").style.display = "block";
@@ -390,6 +396,7 @@
     };
 
     function confirmButton() {
+        console.log(2342)
         if ($("#name").val() == "") {
             alert("名称不能为空")
         }
@@ -397,6 +404,7 @@
             alert("最大容纳量不能为空")
         }
         if (operation == "编辑") {
+            console.log(2342342)
             $.get("http://127.0.0.1:8080/api/meetingRoom/update", {
                 id: selectId, name: $("#name").val(),
                 applictionId: $("#applictionId").val(), applictionSecrit: $("#applictionSecrit").val(),
@@ -437,7 +445,6 @@
             "New row",
             "New row",
             "New row"]);
-
     }
 
 </script>
